@@ -92,29 +92,45 @@ http://IP_SERVER
 ```bash
 sudo apt install mysql-server -y
 ```
-- Setelah install, jalankan konfigurasi keamanan:
+- Setelah install bisa cek versinya dengan :
 ```bash
-sudo mysql_secure_installation
+sudo mysql --version
 ```
-- Pertanyaan yang akan muncul:
-  - "Set up VALIDATE PASSWORD component?" → (Opsional), kalau mau password MySQL lebih kuat, pilih Y.
-  - "Change the root password?" → (Yes, masukkan password untuk root MySQL)
-  - "Remove anonymous users?" → Y (hapus user anonim)
-  - "Disallow root login remotely?" → Y (biar lebih aman)
-  - "Remove test database?" → Y
-  - "Reload privilege tables now?" → Y
-
-- Cek apakah MySQL sudah jalan:
+- Lalu bisa akses mysql dengan :
 ```bash
-sudo systemctl status mysql
+sudo mysql -u root -p
 ```
-- Masuk ke MySQL:
+- Bisa menambahkan password agar aman (Ganti password_baru_anda dengan password yang kamu inginkan.):
+```bash
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password_baru_anda';
+FLUSH PRIVILEGES;
+EXIT;
+```
+- Sekarang coba login ulang dengan:
 ```bash
 sudo mysql -u root -p
 ```
 - Lalu masukkan password yang tadi dibuat.
 - Jika berhasil masuk, berarti sukses! 🎉
 
+**Tambahan**
+
+- Cek Mysql berjalan :
+```bash
+sudo systemctl status mysql
+```
+- Memulai Mysql :
+```bash
+sudo systemctl start mysql
+```
+- Restart Mysql :
+```bash
+sudo systemctl restart mysql
+```
+- Hentikan Mysql :
+```bash
+sudo systemctl stop mysql
+```
 
 
 ## 5. Install PHP (Opsional)
