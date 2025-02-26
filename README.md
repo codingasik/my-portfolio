@@ -8,23 +8,13 @@ Note : pastikan tau IP address dari VPSnya
 ## 1. Install aplikasi untuk mempermudah proses deploy
 
 a. Aplikasi Putty (sama seperti terminal/cmd tapi lebih mudah), bisa diunduh di : [klik di sini](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
-
 b. Aplikasi FileZilla (ini untuk management file yaitu upload project web dll lebih mudah), bisa diunduh di : [klik di sini](https://filezilla-project.org/)
-- Jika sudah terinstall, maka buka FileZillanya dan input bagian Host : IP_ADDRESS_VPS, username : username_vps, password : password_vps dan port : 22
-- Lalu karena menggunakan apache, maka base foldernya berapa di `var/www/html/` untuk upload projek web dll
-
 c. Aplikasi Node js untuk install dll projek base js seperti React js dll, bisa diunduh di : [klik di sini](https://nodejs.org/en/download)
-- Setelah terinstall pastikan untuk cek di terminal/ cmd dengan : `node --version`, harusnya muncul versi node js
-- Jika sudah cek npmnya juga dengan `npm --version`, dan harusnya juga muncul versi npmnya untuk management package, library projek dll
-
 d. Aplikasi Git untuk clone dll projek github, bisa diunduh di : [klik di sini](https://git-scm.com/downloads)
-- Setelah terinstall pastikan cek di terminal atau cmd juga dengan `git --version` yang harusnya muncul versi gitnya
-
 e. Aplikasi VS Code yaitu text editor untuk manage projek react jsnya, bisa diunduh di : [klik di sini](https://code.visualstudio.com/download)
-- Ngga harus text editor ini tapi VS Code yang paling direkomendasikan
-- Pilih saja sesuai OS PC atau Laptopmu saat mendownloadnya
 
 ## 2. Akses VPS
+
 **a. Via terminal di VPS webnya**
 - Biasanya diweb ada fitur console atau terminal. Nah bisa langsung akses disitu
 - Cuma memang kurang fleksibel
@@ -82,7 +72,7 @@ http://IP_SERVER
 ```
 - Kalau muncul "Apache2 Ubuntu Default Page", berarti sukses! 🎉
 
-## 4. Install MySQL (Database Server)
+## 4. Install MySQL Database Server (Opsional)
 
 - Buka VPSnya terlebih dahulu, ketik
 ```bash
@@ -93,12 +83,12 @@ sudo apt install mysql-server -y
 sudo mysql_secure_installation
 ```
 - Pertanyaan yang akan muncul:
--> "Set up VALIDATE PASSWORD component?" → (Opsional), kalau mau password MySQL lebih kuat, pilih Y.
--> "Change the root password?" → (Yes, masukkan password untuk root MySQL)
--> "Remove anonymous users?" → Y (hapus user anonim)
--> "Disallow root login remotely?" → Y (biar lebih aman)
--> "Remove test database?" → Y
--> "Reload privilege tables now?" → Y
+  - "Set up VALIDATE PASSWORD component?" → (Opsional), kalau mau password MySQL lebih kuat, pilih Y.
+  - "Change the root password?" → (Yes, masukkan password untuk root MySQL)
+  - "Remove anonymous users?" → Y (hapus user anonim)
+  - "Disallow root login remotely?" → Y (biar lebih aman)
+  - "Remove test database?" → Y
+  - "Reload privilege tables now?" → Y
 
 - Cek apakah MySQL sudah jalan:
 ```bash
@@ -111,7 +101,7 @@ sudo mysql -u root -p
 - Lalu masukkan password yang tadi dibuat.
 - Jika berhasil masuk, berarti sukses! 🎉
 
-## 5. Install PHP
+## 5. Install PHP (Opsional)
 
 - Buka VPSnya terlebih dahulu, ketik
 ```bash
@@ -164,18 +154,27 @@ git config --list
 ```
 - 🔥 Selesai! Sekarang Node.js, npm, dan Git sudah siap di VPS! 🚀
 
-**4. Upload projek React js ke vps**
-- Clone projek react js yang sudah saya siapkan dengan cara buka terminal atau cmd, dan pastikan path sudah sesuai yang diinginkan misal di desktop, document dll. Dan ketik `git clone https://github.com/codingasik/my-portfolio.git`
-- Tunggu prosesnya selesai. Jika sudah maka akan ada projek dengan nama **my-portfolio**
-- Lalu ketik di terminalnya lagi `cd my-portfolio` dan install semua package, library dll react jsnya dengan ketik `npm install`
-- Tunggu proses downloadnya selesai. Selanjutnya agar lebih mudah buka projek dengan VS Code dengan ketik `code .`, maka otomatis VS Code akan terbuka
-- Buka terminal lagi di VS Codenya dan ketik `npm run dev`, dan klik tombol `ctrl+klik kiri` port yang ditampilkan di terminal misalnya 'http://localhost:5173/'. Maka projek react akan tampil di browser
-- Selanjutnya hentikan prosesnya dengan klik tombol `ctrl+c` di terminal
-- Build projek react js dengan `npm run build`, maka akan ada folder baru yaitu **dist**
-- Isi folder dist adalah file yang akan diupload nantinya di VPS. Jadi compress ke zip semua isi folder dist
-- Setelah itu upload file dist.zip ke vps dengan FIleZilla ke dalam direktori `var/www/html/` (tapi pastikan isinya dihapus semua dulu agar clean) atau jika ingin rapi bisa buat folder misal **my-project** didalam var/www/html/ dengan klik kanan FileZilla dan New Folder
-- Lalu upload dist.zip ke folder my-project dan ekstrak
-- Jangan lupa tambahkan file baru yaitu **.htaccess** yang isinya
+## 9. Upload projek React js ke vps
+
+**a. Clone projek, install dan build Projek React Js**
+- Masuk ke direktori kerja di komputer lokal, lalu jalankan:
+```bash
+git clone https://github.com/codingasik/my-portfolio.git
+```
+- Masuk ke folder project:
+```bash
+cd my-portfolio
+```
+- Install dependencies
+```bash
+npm install
+```
+- Build project React.js
+```bash
+npm run build
+```
+- 👉 Hasilnya ada di folder build/ atau dist/
+- Jangan lupa tambahkan file baru yaitu **.htaccess** didalam folder build/ atau dist/ yang isinya
 ```bash
 RewriteEngine On
 RewriteBase /
@@ -183,10 +182,33 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.html [L]
 ```
-- Setelah itu coba akses http://IP_ADDRESS_VPS di browser. Harusnya muncul tampilan projek React jsnya
+
+**b. Upload projek ke VPS via FileZilla**
+- Buka FileZilla
+- Login ke VPS dengan SFTP (port 22) pakai:
+  - Host: sftp://IP_VPS_KAMU
+  - Username: (contoh: root atau user lain)
+  - Password: (atau pakai Private Key .pem jika pakai AWS/GCP)
+- Upload semua isi dari folder build/ atau dist/ di projek react js ke VPS ke /var/www/html/ (cukup drag semua file dari tab kiri ke kanan)
+
+**c. Set Permission & Restart Apache (opsional)**
+- Pastikan permission benar:
+```bash
+sudo chown -R www-data:www-data /var/www/html/
+sudo chmod -R 755 /var/www/html/
+```
+- Restart Apache:
+```bash
+sudo systemctl restart apache2
+```
+- 🔥 Selesai! Sekarang React.js sudah bisa diakses via:
+```bash
+http://IP_VPS
+```
 - Sampai sini **Selamat!!!** kamu berhasil upload projek React Js pertamamu ke VPS
 
-===============
+***
+
 Jika ada kendala kamu bisa hubungi saya di :
 - Whatsapp : [klik di sini](https://wa.me/6285713254744)
 - Instagram : [klik di sini](https://instagram.com/codingasik)
