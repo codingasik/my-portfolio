@@ -7,7 +7,7 @@ Note : pastikan tau IP address dari VMnya
 - Jadi kita butuh apache, mysql, php, node, npm dll
 - Lalu menggunakan OS Ubuntu yang friendly untuk pemula
 
-1. Step install Apache
+**1. Step install Apache**
 - Buka terminal atau cmd di dan ketik `ssh root@IP_ADDRESS_VPS`
 - Sesuikan root dengan username dan IP_ADRESS dengan IP yang ada di VM. Dan enter
 - Setelah itu akan dimintai password. Ketik saja
@@ -16,7 +16,7 @@ Note : pastikan tau IP address dari VMnya
 - Aktifkan apache dengan : `sudo systemctl enable apache2 && sudo systemctl start apache2`
 - Lalu coba test apache dengan buka browser dan ketik https://IP_ADDRESS_VPS. Jika muncul halaman default apache, maka berhasil
 
-2. Step install MySql dan PHP
+**2. Step install MySql dan PHP**
 - Install Mysql dengan : `sudo apt install mysql-server -y`
 - Amankan instasi Mysql dengan : `sudo mysql_secure_installation`
 - Tes login ke Mysql dengan : `sudo mysql -u root -p`
@@ -27,11 +27,13 @@ Note : pastikan tau IP address dari VMnya
 - Ini akan membuat file info.php didalam folder var/www/html
 - Lalu akses : http://IP_ADDRESS_VPS/info.php . harusnya muncul info php, versi dll
 - Lalu konfigurasi firewall seperti dibawah ini (opsional)
-  `sudo ufw allow OpenSSH`
-  `sudo ufw allow 'Apache Full'`
-  `sudo ufw enable`
+```bash
+sudo ufw allow OpenSSH`
+sudo ufw allow 'Apache Full'
+sudo ufw enable
+```
 
-3. Install aplikasi untuk mempermudah proses deploy
+**3. Install aplikasi untuk mempermudah proses deploy**
 a. Aplikasi Putty (sama seperti terminal/cmd tapi lebih mudah), bisa diunduh di : [klik di sini](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
 - Jika sudah terinstall, maka buka putty. dan input bagian Host dengan IP_ADDRESS_VPS dan port yaitu 22
 - Lalu klik open, maka akan ada dialog login as. Ketik sesuai usernamenya, dan passwordnya juga
@@ -52,7 +54,7 @@ e. Aplikasi VS Code yaitu text editor untuk manage projek react jsnya, bisa diun
 - Ngga harus text editor ini tapi VS Code yang paling direkomendasikan
 - Pilih saja sesuai OS PC atau Laptopmu saat mendownloadnya
 
-4. Upload projek React js ke vps
+**4. Upload projek React js ke vps**
 - Clone projek react js yang sudah saya siapkan dengan cara buka terminal atau cmd, dan pastikan path sudah sesuai yang diinginkan misal di desktop, document dll. Dan ketik `git clone https://github.com/codingasik/my-portfolio.git`
 - Tunggu prosesnya selesai. Jika sudah maka akan ada projek dengan nama **my-portfolio**
 - Lalu ketik di terminalnya lagi `cd my-portfolio` dan install semua package, library dll react jsnya dengan ketik `npm install`
@@ -73,4 +75,14 @@ RewriteRule ^ index.html [L]
 ```
 - Setelah itu coba akses http://IP_ADDRESS_VPS di browser. Harusnya muncul tampilan projek React jsnya
 - Sampai sini **Selamat!!!** kamu berhasil upload projek React Js pertamamu ke VPS
+
+===============
+Jika ada kendala kamu bisa hubungi saya di :
+- Whatsapp : [klik di sini](https://wa.me/6285713254744)
+- Instagram : [klik di sini](https://instagram.com/codingasik)
+- Tiktok : [klik di sini](https://tiktok.com/@codingasik)
+- Youtube : [klik di sini](https://youtube.com/codingasik)
+- Website : [klik di sini](https://codingasikacademy.com)
+
+**Asikin Ajah Ngodingmu - By Bagas Coding Asik**  
 
