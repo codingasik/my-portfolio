@@ -1,43 +1,13 @@
 # Cara Upload Projek React Js ke VPS
 
-## A. Install aplikasi yang diperlukan
-
-Note : pastikan tau IP address dari VMnya
+Note : pastikan tau IP address dari VPSnya
 - Asumsinya adalah sebagai web programmer yang fokus ke bahasa PHP dan Javascript
 - Jadi kita butuh apache, mysql, php, node, npm dll
 - Lalu menggunakan OS Ubuntu yang friendly untuk pemula
 
-**1. Step install Apache**
-- Buka terminal atau cmd di dan ketik `ssh root@IP_ADDRESS_VPS`
-- Sesuikan root dengan username dan IP_ADRESS dengan IP yang ada di VM. Dan enter
-- Setelah itu akan dimintai password. Ketik saja
-- Lalu pertama update dulu system ubuntunya dengan `sudo apt update && sudo apt upgrade –y`
-- Install Apache dengan : `sudo apt install apache2 -y`
-- Aktifkan apache dengan : `sudo systemctl enable apache2 && sudo systemctl start apache2`
-- Lalu coba test apache dengan buka browser dan ketik https://IP_ADDRESS_VPS. Jika muncul halaman default apache, maka berhasil
+## 1. Install aplikasi untuk mempermudah proses deploy
 
-**2. Step install MySql dan PHP**
-- Install Mysql dengan : `sudo apt install mysql-server -y`
-- Amankan instasi Mysql dengan : `sudo mysql_secure_installation`
-- Tes login ke Mysql dengan : `sudo mysql -u root -p`
-- Jika berhasil masuk, maka berhasil install mysql
-- Lalu install PHPnya dengan : `sudo apt install php libapache2-mod-php php-mysql -y`
-- Restart apache agar PHP aktif : `sudo systemctl restart apache2`
-- Lakukan testing dengan buat file dengan : `echo "<?php phpinfo(); ?>" > /var/www/html/info.php`
-- Ini akan membuat file info.php didalam folder var/www/html
-- Lalu akses : http://IP_ADDRESS_VPS/info.php . harusnya muncul info php, versi dll
-- Lalu konfigurasi firewall seperti dibawah ini (opsional)
-```bash
-sudo ufw allow OpenSSH`
-sudo ufw allow 'Apache Full'
-sudo ufw enable
-```
-
-**3. Install aplikasi untuk mempermudah proses deploy**
 a. Aplikasi Putty (sama seperti terminal/cmd tapi lebih mudah), bisa diunduh di : [klik di sini](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
-- Jika sudah terinstall, maka buka putty. dan input bagian Host dengan IP_ADDRESS_VPS dan port yaitu 22
-- Lalu klik open, maka akan ada dialog login as. Ketik sesuai usernamenya, dan passwordnya juga
-- Jika berhasil masuk, maka berhasil. Kamu bisa manage semua dependency disini (install, update, upgrade, uninstall dll)
 
 b. Aplikasi FileZilla (ini untuk management file yaitu upload project web dll lebih mudah), bisa diunduh di : [klik di sini](https://filezilla-project.org/)
 - Jika sudah terinstall, maka buka FileZillanya dan input bagian Host : IP_ADDRESS_VPS, username : username_vps, password : password_vps dan port : 22
@@ -53,6 +23,146 @@ d. Aplikasi Git untuk clone dll projek github, bisa diunduh di : [klik di sini](
 e. Aplikasi VS Code yaitu text editor untuk manage projek react jsnya, bisa diunduh di : [klik di sini](https://code.visualstudio.com/download)
 - Ngga harus text editor ini tapi VS Code yang paling direkomendasikan
 - Pilih saja sesuai OS PC atau Laptopmu saat mendownloadnya
+
+## 2. Akses VPS
+**a. Via terminal di VPS webnya**
+- Biasanya diweb ada fitur console atau terminal. Nah bisa langsung akses disitu
+- Cuma memang kurang fleksibel
+
+**b. Via terminal atau cmd di Laptop/PC langsung**
+1. Cara pertama
+- Buka terminal atau cmd di dan ketik `ssh root@IP_ADDRESS_VPS`
+- Sesuikan root dengan username dan IP_ADRESS dengan IP yang ada di VM. Dan enter
+- Setelah itu akan dimintai password. Ketik saja
+
+2. Via file private key (file *.pem) di terminal atau cmd
+- Buka terminal atau cmd dan arahkan ke directory file *.pem berada
+- Lalu ketik `ssh -i namafile.pem username@IP_ADDRESS_VPS` dan enter
+- Maka otomatis akan masuk ke VPS
+
+**c. Via Putty**
+1. Cara pertama
+- Buka Putty dan input bagian Host dengan IP_ADDRESS_VPS dan port yaitu 22
+- Lalu klik open, maka akan ada dialog **login as**. Ketik sesuai usernamenya, dan passwordnya juga
+- Jika berhasil masuk, maka berhasil
+
+2. Via Putty via SSH private key
+Note : Jika menggunakan SSH private key dll (misal punya file format *.pem *.ppk)
+
+**Step convert** (abaikan step ini jika sudah ada file *.ppk)
+- Convert dulu file *.pem ke format *.ppk (jika hanya ada format *.pem)
+- Saat install putty, harusnya tersinstall aplikasi PuttyGen juga. Buka aplikasinya
+- Pada jendela klik tombol **load**, dan cari file *.pem
+- Lalu setelah terload, klik tombol **Save private key**. Simpan dengan nama dan di folder yang mudah diingat dan dicari
+
+**Step open**
+- Lalu buka putty, input host : IP_ADDRESS_VPS, port : 22
+- Di tab kiri pilih bagian `Connection>SSH>Auth>Credentials`
+- Lalu Browse private key format *.ppk yang diconvert tadi, dan klik Open
+- Lalu di **login as:** ketik usernamenya. Maka VPS berhasil dibuka via Putty
+
+## 3. Install Apache (Web Server)
+
+- Buka VPSnya terlebih dahulu, ketik
+```bash
+sudo apt update && sudo apt install apache2 -y
+```
+- Cek apakah Apache sudah jalan:
+```bash
+sudo systemctl status apache2
+```
+- Kalau aktif, harusnya muncul active (running).
+- Jika belum, aktifkan dengan :
+```bash
+sudo systemctl enable apache2 && sudo systemctl start apache2
+```
+- Buka IP server di browser:
+```bash
+http://IP_SERVER
+```
+- Kalau muncul "Apache2 Ubuntu Default Page", berarti sukses! 🎉
+
+## 4. Install MySQL (Database Server)
+
+- Buka VPSnya terlebih dahulu, ketik
+```bash
+sudo apt install mysql-server -y
+```
+- Setelah install, jalankan konfigurasi keamanan:
+```bash
+sudo mysql_secure_installation
+```
+- Pertanyaan yang akan muncul:
+-> "Set up VALIDATE PASSWORD component?" → (Opsional), kalau mau password MySQL lebih kuat, pilih Y.
+-> "Change the root password?" → (Yes, masukkan password untuk root MySQL)
+-> "Remove anonymous users?" → Y (hapus user anonim)
+-> "Disallow root login remotely?" → Y (biar lebih aman)
+-> "Remove test database?" → Y
+-> "Reload privilege tables now?" → Y
+
+- Cek apakah MySQL sudah jalan:
+```bash
+sudo systemctl status mysql
+```
+- Masuk ke MySQL:
+```bash
+sudo mysql -u root -p
+```
+- Lalu masukkan password yang tadi dibuat.
+- Jika berhasil masuk, berarti sukses! 🎉
+
+## 5. Install PHP
+
+- Buka VPSnya terlebih dahulu, ketik
+```bash
+sudo apt install php libapache2-mod-php php-mysql -y
+```
+- Cek versi PHP:
+```bash
+php -v
+```
+- Kalau muncul versi PHP, berarti sukses! ✅
+
+## 6. Restart Apache biar semua konfigurasi aktif
+
+```bash
+sudo systemctl restart apache2
+```
+- 🔥 Done! Sekarang Apache + MySQL + PHP sudah siap digunakan di VPS! 🚀
+
+## 7. Install Node.js & npm (Opsional)
+
+- Buka VPSnya terlebih dahulu, ketik
+```bash
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+sudo apt install -y nodejs
+```
+- Cek versi Node.js dan npm:
+```bash
+node -v
+npm -v
+```
+
+## 8. Install Git (Opsional)
+
+- Buka VPSnya terlebih dahulu, ketik
+```bash
+sudo apt install git -y
+```
+- Cek versi Git:
+```bash
+git --version
+```
+- Set konfigurasi Git (opsional, kalau mau commit pakai GitHub/GitLab)
+```bash
+git config --global user.name "Nama Kamu"
+git config --global user.email "email@example.com"
+```
+- Cek hasil konfigurasi:
+```bash
+git config --list
+```
+- 🔥 Selesai! Sekarang Node.js, npm, dan Git sudah siap di VPS! 🚀
 
 **4. Upload projek React js ke vps**
 - Clone projek react js yang sudah saya siapkan dengan cara buka terminal atau cmd, dan pastikan path sudah sesuai yang diinginkan misal di desktop, document dll. Dan ketik `git clone https://github.com/codingasik/my-portfolio.git`
