@@ -1,4 +1,6 @@
-# Cara Upload Projek React Js ke VPS
+# Cara Upload Projek React Js ke VPS NEO Lite Pro dari Biznet Gio Cloud
+
+Detail paket VPS NEO Lite Pro mulai dari spesifikasi, keunggulan, dan harga, bisa [klik di sini](https://www.biznetgio.com/product/neo-lite-pro)
 
 Note : pastikan tau IP address dari VPSnya
 - Asumsinya adalah sebagai web programmer yang fokus ke bahasa PHP dan Javascript
