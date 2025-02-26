@@ -5,13 +5,19 @@ Note : pastikan tau IP address dari VPSnya
 - Jadi kita butuh apache, mysql, php, node, npm dll
 - Lalu menggunakan OS Ubuntu yang friendly untuk pemula
 
+
 ## 1. Install aplikasi untuk mempermudah proses deploy
 
 a. Aplikasi Putty (sama seperti terminal/cmd tapi lebih mudah), bisa diunduh di : [klik di sini](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
+
 b. Aplikasi FileZilla (ini untuk management file yaitu upload project web dll lebih mudah), bisa diunduh di : [klik di sini](https://filezilla-project.org/)
+
 c. Aplikasi Node js untuk install dll projek base js seperti React js dll, bisa diunduh di : [klik di sini](https://nodejs.org/en/download)
+
 d. Aplikasi Git untuk clone dll projek github, bisa diunduh di : [klik di sini](https://git-scm.com/downloads)
+
 e. Aplikasi VS Code yaitu text editor untuk manage projek react jsnya, bisa diunduh di : [klik di sini](https://code.visualstudio.com/download)
+
 
 ## 2. Akses VPS
 
@@ -51,6 +57,7 @@ Note : Jika menggunakan SSH private key dll (misal punya file format *.pem *.ppk
 - Lalu Browse private key format *.ppk yang diconvert tadi, dan klik Open
 - Lalu di **login as:** ketik usernamenya. Maka VPS berhasil dibuka via Putty
 
+
 ## 3. Install Apache (Web Server)
 
 - Buka VPSnya terlebih dahulu, ketik
@@ -71,6 +78,7 @@ sudo systemctl enable apache2 && sudo systemctl start apache2
 http://IP_SERVER
 ```
 - Kalau muncul "Apache2 Ubuntu Default Page", berarti sukses! 🎉
+
 
 ## 4. Install MySQL Database Server (Opsional)
 
@@ -101,6 +109,7 @@ sudo mysql -u root -p
 - Lalu masukkan password yang tadi dibuat.
 - Jika berhasil masuk, berarti sukses! 🎉
 
+
 ## 5. Install PHP (Opsional)
 
 - Buka VPSnya terlebih dahulu, ketik
@@ -113,12 +122,14 @@ php -v
 ```
 - Kalau muncul versi PHP, berarti sukses! ✅
 
+
 ## 6. Restart Apache biar semua konfigurasi aktif
 
 ```bash
 sudo systemctl restart apache2
 ```
 - 🔥 Done! Sekarang Apache + MySQL + PHP sudah siap digunakan di VPS! 🚀
+
 
 ## 7. Install Node.js & npm (Opsional)
 
@@ -132,6 +143,7 @@ sudo apt install -y nodejs
 node -v
 npm -v
 ```
+
 
 ## 8. Install Git (Opsional)
 
@@ -153,6 +165,7 @@ git config --global user.email "email@example.com"
 git config --list
 ```
 - 🔥 Selesai! Sekarang Node.js, npm, dan Git sudah siap di VPS! 🚀
+
 
 ## 9. Upload projek React js ke vps
 
