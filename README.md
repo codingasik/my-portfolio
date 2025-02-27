@@ -234,8 +234,8 @@ RewriteRule ^ index.html [L]
 **c. Set Permission & Restart Apache (opsional)**
 - Pastikan permission benar:
 ```bash
-sudo chown -R www-data:www-data /var/www/html/
-sudo chmod -R 755 /var/www/html/
+sudo chown -R usernamemu:www-data /var/www/html
+sudo chmod -R 775 /var/www/html
 ```
 - Restart Apache:
 ```bash
