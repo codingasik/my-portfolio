@@ -263,6 +263,10 @@ curl -sL yabs.sh | bash
 ```bash
 sudo apt install wrk -y
 ```
+- Cek apakah sudah terinstall :
+```bash
+wrk --version
+```
 - Command untuk benchmark 200 user dalam 4x loop, masing-masing 30 detik:
 ```bash
 wrk -t4 -c200 -d30s http://your-vps-ip/
