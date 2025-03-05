@@ -248,6 +248,34 @@ http://IP_VPS
 - Sampai sini **Selamat!!!** kamu berhasil upload projek React Js pertamamu ke VPS
 
 
+
+## 10. Test Benchmark VPS (Opsional)
+
+**a. Test dengan YABS (Yet Another Bench Script)**
+- Ketik di putty code berikut :
+```bash
+curl -sL yabs.sh | bash
+```
+- Ini untuk tes CPU, RAM, Disk, dan Network Speed. Hasilnya mirip spek resmi VPS.
+
+**b. Menggunakan wrk untuk testing misal 200 user dengan 4x perulangan**
+- Pertama install dahulu :
+```bash
+sudo apt install wrk -y
+```
+- Command untuk benchmark 200 user dalam 4x loop, masing-masing 30 detik:
+```bash
+wrk -t4 -c200 -d30s http://your-vps-ip/
+```
+- Ganti your-vps-ip dengan IP_ADDRESS_VPS
+- Penjelasan:
+  - t4 → Gunakan 4 thread untuk simulasi.
+  - c200 → 200 koneksi aktif sekaligus.
+  - d30s → Tes berjalan selama 30 detik.
+- Hasilnya: Akan menampilkan latency, requests per second, dan bandwidth usage.
+
+
+
 ***
 
 
